@@ -74,9 +74,9 @@ def load_events(lines:list[str])->pd.DataFrame:
         # extracting the dat asuing split since there is space between the date and time
         end_time = pd.to_datetime(start.split()[0]+" " +end.strip(),format="%d.%m.%Y %H:%M:%S,%f")
 
-        records.append([start_time, end_time, event_type.strip()])
+        records.append([start_time, end_time, event_type.strip(),stage.strip()])
     
-    df = pd.DataFrame(records, columns=["start", "end", "event"])
+    df = pd.DataFrame(records, columns=["start", "end", "event","stage"])
 
     return df
 

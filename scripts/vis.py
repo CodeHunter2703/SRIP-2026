@@ -86,10 +86,11 @@ def visualize_participant(participant_folder_path):
     construct pdf and save it into ~/visulisations as a form of pdf
     """
     # recurrsively findind the file path similiar to like predicate in sql eg - like "%Flow%"
-    flow_files = glob.glob(participant_folder_path + "/*Flow -*.txt")
+    flow_list = glob.glob(participant_folder_path + "/*Flow*.txt")
     thor_files = glob.glob(participant_folder_path + "/*Thor*.txt")
     spo2_files = glob.glob(participant_folder_path + "/*SPO2*.txt")
-    event_files = glob.glob(participant_folder_path + "/*Event*.txt")
+    flow_files=[ name for name in flow_list if "event" not in name.lower()]
+    event_files =[ name for name in flow_list if "event" in name.lower()]
 
     # select the first match and directly pass them into the load funciton
     flow_file = flow_files[0]
@@ -146,7 +147,7 @@ def visualize_participant(participant_folder_path):
     plt.legend(loc="upper right") # ADDED: Show the legend
     
     pdf.savefig(dpi=300) #Save to PDF first or new plot will come and go only
-    plt.show()    # for testing
+    # plt.show()    # for testing
     plt.close()   # flush
 
     #Plot 2: Thoracic Signal
@@ -163,7 +164,7 @@ def visualize_participant(participant_folder_path):
     plt.xticks(rotation=40)
     
     pdf.savefig(dpi=300)
-    plt.show()
+    # plt.show()
     plt.close()
 
     #SPO2 Signal
@@ -180,7 +181,7 @@ def visualize_participant(participant_folder_path):
     plt.xticks(rotation=40)
     
     pdf.savefig(dpi=300)
-    plt.show()
+    # plt.show()
     plt.close()
 
     # flushig the pdf object so everthing i save 
